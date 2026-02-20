@@ -1,0 +1,69 @@
+# =====================================================
+# .gitignore para Proyecto Arduino ESP32 - SoyTuAcuario
+# =====================================================
+.claude
+# ==================== IDE Arduino ====================
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# ==================== Compilacion ====================
+build/
+*.elf
+*.hex
+*.bin
+*.o
+*.d
+*.map
+
+# ==================== Archivos temporales ====================
+*.tmp
+*.bak
+*.log
+*.swp
+*.swo
+*~
+.emacs.backup
+
+# ==================== Sistema operativo ====================
+.DS_Store
+Thumbs.db
+.directory
+desktop.ini
+*.lnk
+
+# ==================== Librerias locales ====================
+# Descomenta si usas librerias locales
+# libraries/
+
+# ==================== SEGURIDAD - CREDENCIALES ====================
+# IMPORTANTE: Nunca commitear archivos con credenciales
+secrets.h
+credentials.h
+config_local.h
+wifi_config.h
+
+# Nota: ConexionWifi.hpp contiene credenciales WiFi
+# Considera crear ConexionWifi.hpp.example sin credenciales reales
+# y agregar ConexionWifi.hpp a este gitignore
+
+# ==================== Arduino CLI ====================
+.arduino15/
+arduino-cli.yaml
+
+# ==================== PlatformIO ====================
+.pio/
+.pioenvs/
+.piolibdeps/
+platformio.local.ini
+
+# ==================== ESP-IDF ====================
+sdkconfig
+sdkconfig.old
+managed_components/
+
+# ==================== Logs y debug ====================
+*.log
+serial_output.txt
+debug/
