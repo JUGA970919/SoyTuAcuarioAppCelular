@@ -1,20 +1,18 @@
-//################ Modo de Operacion #####################
-// 0 = MODO_NORMAL (sensado)
-// 1 = MODO_CONFIG_BLE (configuracion WiFi)
-int modoOperacion = 0;
-#define MODO_NORMAL 0
-#define MODO_CONFIG_BLE 1
-//#######################################################
-
 //################ Variables ADS1115#####################
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>
 
-// Pines I2C ESP32-C3 SuperMini
-#define SDA_PIN 8
-#define SCL_PIN 9
+/* // Pines I2C ESP32-C3 SuperMini
+#define SDA_PIN 8   /}
+#define SCL_PIN 9   
+*/
+// Pines I2C ESP32 normal
+#define SDA_PIN 21
+#define SCL_PIN 22
 
 Adafruit_ADS1115 ads;
+
+bool modoSimulacion = 0;
 //#######################################################################
 
 //################ Sensor de PH #####################
@@ -35,8 +33,12 @@ float ph = 0;
 //################ Sensor de temperatura #####################
 #include <OneWire.h>
 #include <DallasTemperature.h>
+// pin para esl esp32c3 ssuper Mini
+//#define OneWirePin 2
 
-#define OneWirePin 2
+// Pin par el esp32 Normal
+#define OneWirePin 16
+
 
 OneWire oneWire(OneWirePin);
 DallasTemperature sensors(&oneWire);

@@ -16,19 +16,23 @@ bool timmer(unsigned long &ActualTime, unsigned long Preset){
 void StatusButton(DigitalFilter &filter, int pinButton,unsigned long debounce) {
 
   filter.readButton = digitalRead(pinButton);
+  if (modoSimulacion == 0) {
 
-  if (filter.oldStatus != filter.readButton) {
-    filter.time = millis();
-    filter.flag = 1;
-  }
+    if (filter.oldStatus != filter.readButton) {
+      filter.time = millis();
+      filter.flag = 1;
+    }
 
-  if (filter.flag == 1 && timmer(filter.time, debounce)) {
-    filter.estadoFlotador = (filter.readButton == LOW) ? 1 : 0;
-    filter.flag = 0;
+    if (filter.flag == 1 && timmer(filter.time, debounce)) {
+      filter.estadoFlotador = (filter.readButton == LOW) ? 1 : 0;
+      filter.flag = 0;
+      filter.oldStatus = filter.readButton;
+      //return true;   // hubo cambio válido
+    }
     filter.oldStatus = filter.readButton;
-    //return true;   // hubo cambio válido
   }
-
-  filter.oldStatus = filter.readButton;
+  else if(modoSimulacion == 1){
+    filter.estadoFlotador = random(0,2);
+  }
   //return false;    // no hubo cambio
 }
