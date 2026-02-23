@@ -2,6 +2,7 @@
 // ConfigBLE.hpp - Configuracion WiFi via BLE para SoyTuAcuario
 // ============================================================
 
+#include <WiFi.h>
 #include <BLEDevice.h>
 #include <BLEServer.h>
 #include <BLEUtils.h>
