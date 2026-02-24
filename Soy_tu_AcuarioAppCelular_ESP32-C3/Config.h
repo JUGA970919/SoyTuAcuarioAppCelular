@@ -1,3 +1,11 @@
+//################ Modo de Operacion #####################
+// 0 = MODO_NORMAL (sensado)
+// 1 = MODO_CONFIG_BLE (configuracion WiFi)
+#define MODO_NORMAL 0
+#define MODO_CONFIG_BLE 1
+int modoOperacion = MODO_NORMAL;
+//#######################################################
+
 //################ Variables ADS1115#####################
 #include <Wire.h>
 #include <Adafruit_ADS1X15.h>

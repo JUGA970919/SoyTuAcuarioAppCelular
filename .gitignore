@@ -2,6 +2,8 @@
 # .gitignore para Proyecto Arduino ESP32 - SoyTuAcuario
 # =====================================================
 .claude
+CLAUDE.md
+DOCS_APP_IONIC_BLE.md
 # ==================== IDE Arduino ====================
 .vscode/
 .idea/
