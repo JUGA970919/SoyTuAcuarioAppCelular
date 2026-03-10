@@ -103,6 +103,51 @@ bool estadoSensoresAgua = true; // true = PH/TEMP/TURB, false = TDS
 
 //#######################################################
 
+//################ Intervalo Serial #####################
+unsigned long lastSerialSend = 0;
+const unsigned long serialInterval = 5000; // 5 segundos
+//#######################################################
+
+//################ Firebase Realtime Database #####################
+#define FIREBASE_HOST "acuario-61b93-default-rtdb.firebaseio.com"
+#define FIREBASE_AUTH ""  // Sin auth (rules publicas en desarrollo)
+#define FW_VERSION "1.1"
+
+// Intervalos (ms)
+#define FB_SEND_INTERVAL    30000   // Enviar datos cada 30 segundos
+#define FB_SSE_RECONNECT    5000    // Reconectar SSE si cae
+
+// Estado Firebase
+bool firebaseConectado = false;
+bool sseConectado = false;
+unsigned long lastFirebaseSend = 0;
+unsigned long lastSSEReconnect = 0;
+
+// MAC como ID del dispositivo
+String deviceMAC = "";
+
+// Comandos recibidos via SSE
+struct FirebaseCommands {
+  int luz = 0;       // l
+  int bomba = 0;     // b
+  int feeder = 0;    // f
+  int reset = 0;     // r
+  int calph = 0;     // cp
+};
+FirebaseCommands fbCmd;
+
+// Alertas configuradas desde la app
+struct FirebaseAlarms {
+  float phMin = 6.5;
+  float phMax = 8.5;
+  float tempMin = 20.0;
+  float tempMax = 30.0;
+  int tdsMax = 800;
+  float turbMax = 3.5;
+};
+FirebaseAlarms fbAlarm;
+//#######################################################
+
 //################ Calibracion ph ##########################
 int calibracionph = 0;  // esta variable se recibe desde la app movil
 String buferph = "0";

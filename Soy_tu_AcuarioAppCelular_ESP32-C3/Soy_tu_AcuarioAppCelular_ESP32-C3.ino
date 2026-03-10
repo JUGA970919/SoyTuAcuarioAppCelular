@@ -3,6 +3,7 @@
 #include "Pantalla.hpp"
 #include "ConfigBLE.hpp"
 #include "ConexionWifi.hpp"
+#include "FirebaseRT.hpp"
 
 #include "FiltroSensor.hpp"
 #include "SensorPh.hpp"
@@ -22,7 +23,7 @@ const int PinD5 = 17;
 void setup() {
   Serial.begin(115200);
   delay(1000);
-  /*
+/*
   // ===== BORRAR CREDENCIALES (quitar después de probar) =====
   preferences.begin("wifi", false);
   preferences.clear();
@@ -72,6 +73,9 @@ void setupModoNormal() {
   FlotadorIni();
   pinMode(PinD5, OUTPUT);
 
+  firebaseInit();
+  firebaseSendInitData();  // Enviar st, rs, fw una sola vez
+
   Serial.println("[Sistema] Sensores inicializados");
 }
 
@@ -99,6 +103,7 @@ void loop() {
 
   // ====== MODO NORMAL (sensado) ======
   wifiLoop();
+  firebaseLoop();
   Setponts();
   unsigned long now = millis();
 
@@ -140,14 +145,18 @@ void loop() {
 
   MostarPantalla();
 
-  Serial.print(ph);
-  Serial.print(",");
-  Serial.print(temperaturaCelcius);
-  Serial.print(",");
-  Serial.print(turbidez);
-  Serial.print(",");
-  Serial.print(tds);
-  Serial.print(",");
-  Serial.print(nivelAgua.estadoFlotador);
-  Serial.println(":");
+  // Enviar datos por Serial cada 5 segundos
+  if (millis() - lastSerialSend >= serialInterval) {
+    lastSerialSend = millis();
+    Serial.print(ph);
+    Serial.print(",");
+    Serial.print(temperaturaCelcius);
+    Serial.print(",");
+    Serial.print(turbidez);
+    Serial.print(",");
+    Serial.print(tds);
+    Serial.print(",");
+    Serial.print(nivelAgua.estadoFlotador);
+    Serial.println(":");
+  }
 }
